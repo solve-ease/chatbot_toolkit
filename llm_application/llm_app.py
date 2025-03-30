@@ -20,11 +20,11 @@ class llm:
                 inp
             )
         ):
-            yield i
+            yield i.content
         
     def invoke(self, inp : tuple):
         return self.model.invoke(
             self.prompt_template.invoke(
                 inp
             )
-        )
+        ).content
