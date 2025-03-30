@@ -14,7 +14,15 @@ class llm:
     def create_prompt_template(self , template: ChatPromptTemplate): # pass a prompt template to maintain while calling the llm
         self.prompt_template = template
 
-    def stream(self, inp: tuple):
+    def stream(self, inp: tuple): # blocking streaming function to improve performance
+        for i in self.model.stream(
+            self.prompt_template.invoke(
+                inp
+            )
+        ):
+            yield i.content
+    
+    async def stream(self, inp: tuple): # non-blocking streaming function to improve performance
         for i in self.model.stream(
             self.prompt_template.invoke(
                 inp

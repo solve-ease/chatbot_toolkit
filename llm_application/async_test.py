@@ -1,6 +1,6 @@
 from llm_app import llm
 from langchain_core.prompts import ChatPromptTemplate
-
+import asyncio
 
 model = llm("deepseek/deepseek-chat-v3-0324:free" , "openai")
 
@@ -14,7 +14,10 @@ model.create_prompt_template(
     )
 )
 
-for i in model.stream(("what should we do today")):
-    print(i,end="")
+async def main():
+    async for i in model.stream(("what should we do today")):
+        print(i,end="")
 
-print("\n")
+    print("\n")
+
+asyncio.run(main())
