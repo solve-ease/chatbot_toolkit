@@ -22,7 +22,7 @@ class llm:
         ):
             yield i.content
     
-    async def stream(self, inp: tuple): # non-blocking streaming function to improve performance
+    async def astream(self, inp: tuple): # non-blocking streaming function to improve performance
         for i in self.model.stream(
             self.prompt_template.invoke(
                 inp

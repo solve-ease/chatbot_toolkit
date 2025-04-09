@@ -15,7 +15,7 @@ model.create_prompt_template(
 )
 
 async def main():
-    async for i in model.stream(("what should we do today")):
+    async for i in model.astream(("what should we do today")):
         print(i,end="")
 
     print("\n")
