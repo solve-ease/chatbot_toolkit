@@ -28,7 +28,7 @@ class chatbot():
 
     def llm(self , state : state):
         return {
-            "messages" : self.model.stream(
+            "messages" : self.model.invoke(
                 state["messages"]
             )
         }
@@ -37,15 +37,15 @@ class chatbot():
         # sample template : config = {"configurable" : {"thread_id" : n}}
         self.config = config
     
-    async def astream(self, message):
+    def astream(self, message):
         pass
 
     def set_system_prompt(self, prompt):
-        self.system_prompt = SystemMessage(content=prompt)
+        self.system_prompt = {"role":"system" , 'content' : prompt}
         self.graph.invoke({"messages" : self.system_prompt} , config=self.config)
 
     def invoke(self , message) : 
-        return self.graph.inovke(
+        return self.graph.invoke(
             {
                 "messages" : message
             },config = self.config
