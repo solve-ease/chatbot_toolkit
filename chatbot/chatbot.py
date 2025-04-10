@@ -6,7 +6,8 @@ from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate 
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage , trim_messages
+from langchain_core.messages.utils import count_tokens_approximately
 
 load_dotenv()
 
@@ -49,7 +50,15 @@ class chatbot():
         all_msgs = self.graph.get_state(self.config).values["messages"] + [{"role":  "user" , "content": message}]
         self.graph.update_state(self.config , {"messages": all_msgs})
 
-        async for chunk in self.model.astream(all_msgs):
+        async for chunk in self.model.astream(
+            trim_messages(
+                all_msgs,
+                max_tokens = 1000,
+                token_counter = count_tokens_approximately,
+                include_system = True,
+                allow_partial = True 
+            )
+        ):
             # print(chunk)
             fin += chunk.content
             yield chunk.content
