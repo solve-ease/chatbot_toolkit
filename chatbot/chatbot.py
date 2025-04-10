@@ -14,14 +14,16 @@ class state(TypedDict):
     messages: Annotated[list , add_messages]
 
 class chatbot():
+
     def __init__(self, model_name , model_provider):
         self.model = init_chat_model(model=model_name , model_provider=model_provider)
-        
+
         self.graphBuilder = StateGraph(state)
 
         self.graphBuilder.add_node("llm" , self.llm)
-        self.graphBuilder.add_edge(START , "llm")
+
         self.graphBuilder.add_edge("llm" , END)
+        self.graphBuilder.add_edge(START, "llm")
 
         checkpointer = MemorySaver()
         self.graph = self.graphBuilder.compile(checkpointer=checkpointer)
@@ -32,21 +34,41 @@ class chatbot():
                 state["messages"]
             )
         }
-    
+
     def set_config(self , config):
         # sample template : config = {"configurable" : {"thread_id" : n}}
         self.config = config
+        self.thread_key = config["configurable"]["thread_id"]
     
-    def astream(self, message):
-        pass
+    async def astream(self, message):
+
+        # print(self.graph.get_state(self.config))
+
+        fin = ""
+
+        all_msgs = self.graph.get_state(self.config).values["messages"] + [{"role":  "user" , "content": message}]
+        self.graph.update_state(self.config , {"messages": all_msgs})
+
+        async for chunk in self.model.astream(all_msgs):
+            # print(chunk)
+            fin += chunk.content
+            yield chunk.content
+        
+        ai_message = [{"role" : "ai" , "content" : fin}]
+        all_msgs = self.graph.get_state(self.config).values["messages"] + ai_message
+
+        # print(all_msgs)
+        self.graph.update_state(self.config , {"messages": all_msgs})
 
     def set_system_prompt(self, prompt):
-        self.system_prompt = {"role":"system" , 'content' : prompt}
-        self.graph.invoke({"messages" : self.system_prompt} , config=self.config)
+        self.system_prompt = [{"role":"system" , 'content' : prompt}]
+        self.graph.update_state(self.config , {"messages": self.system_prompt})
 
-    def invoke(self , message) : 
-        return self.graph.invoke(
+    def invoke(self , message) :
+        temp = self.graph.invoke(
             {
                 "messages" : message
             },config = self.config
-        )["messages"][-1].content
+        )
+        
+        return temp["messages"][-1].content
