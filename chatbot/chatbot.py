@@ -5,16 +5,17 @@ from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
-from langchain_core.prompts import ChatPromptTemplate, PromptTemplate 
-from langchain_core.messages import SystemMessage , trim_messages
+# from langchain_core.prompts import ChatPromptTemplate, PromptTemplate 
+from langchain_core.messages import  trim_messages
 from langchain_core.messages.utils import count_tokens_approximately
+
 
 load_dotenv()
 
 class state(TypedDict):
     messages: Annotated[list , add_messages]
 
-class chatbot():
+class ChatBot():
 
     def __init__(self, model_name , model_provider):
         self.model = init_chat_model(model=model_name , model_provider=model_provider)

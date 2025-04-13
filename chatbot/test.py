@@ -1,7 +1,7 @@
-from chatbot import chatbot
+from chatbot import ChatBot
 import asyncio
 
-llm = chatbot(model_name = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free" , model_provider = "together")
+llm = ChatBot(model_name = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free" , model_provider = "together")
 
 llm.set_config({
     "configurable" : {"thread_id" : "1"}
@@ -21,5 +21,6 @@ async def temp():
         async for i in llm.astream(inp):
             print(i,flush=True , end="")
         print()
-        
+
+      
 asyncio.run(temp())
