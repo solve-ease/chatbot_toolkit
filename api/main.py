@@ -12,6 +12,8 @@ load_dotenv()
 
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
 
+
+
 import sys
 sys.path.append("../")
 
@@ -23,13 +25,13 @@ app = FastAPI()
 # logger setup
 logging.basicConfig(level=logging.DEBUG,format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",)
 
-print(ALLOWED_ORIGINS)
+# print(ALLOWED_ORIGINS)
 
 # cors stup
 app.add_middleware(
     CORSMiddleware,
     # allow_origins= ALLOWED_ORIGINS,
-    allow_origins = ["*"],
+    allow_origins = ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
