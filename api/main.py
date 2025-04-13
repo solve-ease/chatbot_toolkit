@@ -17,7 +17,7 @@ ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS").split(",")
 import sys
 sys.path.append("../")
 
-from chatbot.chatbot import ChatBot
+from inference import ChatBot
 from starlette.responses import StreamingResponse
 
 app = FastAPI()
