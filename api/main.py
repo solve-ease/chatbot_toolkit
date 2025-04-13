@@ -57,23 +57,23 @@ async def health_check():
 # })
     
 
+llm = ChatBot(model_name = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free" , model_provider = "together")
+
+llm.set_system_prompt("You are DevAssist, an intelligent and friendly AI assistant on a tech team’s official website. "
+"Your job is to guide visitors, answer questions, and help potential clients understand how the team can bring their tech ideas to life. "
+"You have to provide various roadmap and various insights for the idea of the customer (if they present any)"
+"Use a mix of technical understanding and clear, approachable language. Match the user's tone (technical if they are, simplified if not). "
+"Where appropriate, ask follow-up questions that gently qualify the user as a potential lead — for example, inquire about their goals, project stage, timeline, "
+"or whether they'd like to connect with the team to explore a solution.")
 
 @app.post("/chat-response")
 async def get_response(request: InferenceRequest):
     try:
-        # asyncio.run(configure_llm)
-        llm = ChatBot(model_name = "meta-llama/Llama-3.3-70B-Instruct-Turbo-Free" , model_provider = "together")
+        # asyncio.run(configure_llm) 
 
         llm.set_config({
         "configurable" : {"thread_id" : "1"}
         })
-
-        llm.set_system_prompt("You are DevAssist, an intelligent and friendly AI assistant on a tech team’s official website. "
-        "Your job is to guide visitors, answer questions, and help potential clients understand how the team can bring their tech ideas to life. "
-        "You have to provide various roadmap and various insights for the idea of the customer (if they present any)"
-        "Use a mix of technical understanding and clear, approachable language. Match the user's tone (technical if they are, simplified if not). "
-        "Where appropriate, ask follow-up questions that gently qualify the user as a potential lead — for example, inquire about their goals, project stage, timeline, "
-        "or whether they'd like to connect with the team to explore a solution.")
 
         logging.debug("LLM Configured !")
 
