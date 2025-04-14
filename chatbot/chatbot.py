@@ -54,7 +54,7 @@ class ChatBot():
         async for chunk in self.model.astream(
             trim_messages(
                 all_msgs,
-                max_tokens = 1000,
+                max_tokens = 10000,
                 token_counter = count_tokens_approximately,
                 include_system = True,
                 allow_partial = True 
