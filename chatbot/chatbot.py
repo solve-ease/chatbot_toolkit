@@ -5,7 +5,6 @@ from langgraph.graph.message import add_messages
 from langgraph.checkpoint.memory import MemorySaver
 from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
-# from langchain_core.prompts import ChatPromptTemplate, PromptTemplate 
 from langchain_core.messages import  trim_messages
 from langchain_core.messages.utils import count_tokens_approximately
 
@@ -43,8 +42,6 @@ class ChatBot():
         self.thread_key = config["configurable"]["thread_id"]
     
     async def astream(self, message):
-
-        # print(self.graph.get_state(self.config))
 
         response = ""
 
