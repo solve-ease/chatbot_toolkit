@@ -72,7 +72,7 @@ async def get_response(request: InferenceRequest):
         # asyncio.run(configure_llm) 
 
         llm.set_config({
-        "configurable" : {"thread_id" : "1"}
+        "configurable" : {"thread_id" : request.id}
         })
 
         logging.debug("LLM Configured !")
