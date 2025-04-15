@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development Roadmap</title>
+    <style>
+        :root {
+            --primary-color: #3a86ff;
+            --secondary-color: #8338ec;
+            --accent-color: #ff006e;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #38b000;
+            --warning-color: #ffbe0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .info-card h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .roadmap-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .roadmap-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .phase {
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        
+        .phase:last-child {
+            margin-bottom: 0;
+        }
+        
+        .phase-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .phase-number {
+            background: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .phase-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .phase-timeline {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            margin-left: auto;
+            background: rgba(255, 0, 110, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        
+        .phase-content {
+            padding-left: 4rem;
+            position: relative;
+        }
+        
+        .phase-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            height: 100%;
+            width: 2px;
+            background: var(--light-color);
+        }
+        
+        .task-list {
+            list-style: none;
+        }
+        
+        .task-item {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .task-item::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary-color);
+        }
+        
+        .resources {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(58, 134, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+        .resource-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .resource-tag {
+            background: var(--light-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .tech-item {
+            background: white;
+            border: 1px solid var(--light-color);
+            border-radius: 8px;
+            padding: 1rem;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tech-item h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .conclusion {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .budget-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .budget-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .budget-table th, .budget-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-color);
+        }
+        
+        .budget-table th {
+            background: rgba(58, 134, 255, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .budget-table tr:last-child td {
+            font-weight: bold;
+            border-bottom: none;
+            background: rgba(56, 176, 0, 0.05);
+        }
+        
+        .risk-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .risk-table th, .risk-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--light-color);
+        }
+        
+        .risk-table th {
+            background: rgba(58, 134, 255, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .risk-high {
+            color: var(--accent-color);
+        }
+        
+        .risk-medium {
+            color: var(--warning-color);
+        }
+        
+        .risk-low {
+            color: var(--success-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--dark-color);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .phase-timeline {
+                margin-left: 0;
+                margin-top: 0.5rem;
+                display: block;
+            }
+            
+            .phase-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>{{PROJECT_NAME}} Development Roadmap</h1>
+            <p>{{PROJECT_DESCRIPTION}}</p>
+        </header>
+        
+        <div class="project-info">
+            <div class="info-card">
+                <h3>Project Overview</h3>
+                <p>{{PROJECT_OVERVIEW}}</p>
+                <p><strong>Project Type:</strong> {{PROJECT_TYPE}}</p>
+                <p><strong>Target Audience:</strong> {{TARGET_AUDIENCE}}</p>
+                <p><strong>Estimated Timeframe:</strong> {{ESTIMATED_TIMEFRAME}}</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>Strategic Goals</h3>
+                <ul class="task-list">
+                    {{#EACH_GOAL}}
+                    <li class="task-item">{{GOAL_TEXT}}</li>
+                    {{/EACH_GOAL}}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="roadmap-section">
+            <h2>Technology Stack</h2>
+            <p>{{TECH_STACK_INTRO}}</p>
+            
+            <div class="tech-stack">
+                {{#EACH_TECH_COMPONENT}}
+                <div class="tech-item">
+                    <h4>{{TECH_COMPONENT_NAME}}</h4>
+                    <p>{{TECH_COMPONENT_DESCRIPTION}}</p>
+                </div>
+                {{/EACH_TECH_COMPONENT}}
+            </div>
+        </div>
+        
+        <div class="roadmap-section">
+            <h2>Development Phases</h2>
+            
+            {{#EACH_PHASE}}
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-number">{{PHASE_NUMBER}}</div>
+                    <h3 class="phase-title">{{PHASE_NAME}}</h3>
+                    <div class="phase-timeline">{{PHASE_TIMELINE}}</div>
+                </div>
+                <div class="phase-content">
+                    <p>{{PHASE_DESCRIPTION}}</p>
+                    
+                    <h4>Key Tasks:</h4>
+                    <ul class="task-list">
+                        {{#EACH_TASK}}
+                        <li class="task-item">{{TASK_DESCRIPTION}}</li>
+                        {{/EACH_TASK}}
+                    </ul>
+                    
+                    <div class="resources">
+                        <h4>Resources & Tools:</h4>
+                        <ul class="resource-list">
+                            {{#EACH_RESOURCE}}
+                            <li class="resource-tag">{{RESOURCE_NAME}}</li>
+                            {{/EACH_RESOURCE}}
+                        </ul>
+                    </div>
+                    
+                    <h4>Deliverables:</h4>
+                    <ul class="task-list">
+                        {{#EACH_DELIVERABLE}}
+                        <li class="task-item">{{DELIVERABLE_DESCRIPTION}}</li>
+                        {{/EACH_DELIVERABLE}}
+                    </ul>
+                </div>
+            </div>
+            {{/EACH_PHASE}}
+        </div>
+        
+        <div class="budget-section">
+            <h2>Budget Estimation</h2>
+            <p>{{BUDGET_DESCRIPTION}}</p>
+            
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Estimated Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#EACH_BUDGET_ITEM}}
+                    <tr>
+                        <td>{{BUDGET_CATEGORY}}</td>
+                        <td>{{BUDGET_DESCRIPTION}}</td>
+                        <td>{{BUDGET_COST}}</td>
+                    </tr>
+                    {{/EACH_BUDGET_ITEM}}
+                    <tr>
+                        <td colspan="2">Total Estimated Budget</td>
+                        <td>{{TOTAL_BUDGET}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="roadmap-section">
+            <h2>Risk Assessment & Mitigation</h2>
+            <p>{{RISK_DESCRIPTION}}</p>
+            
+            <table class="risk-table">
+                <thead>
+                    <tr>
+                        <th>Risk</th>
+                        <th>Impact</th>
+                        <th>Likelihood</th>
+                        <th>Mitigation Strategy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#EACH_RISK}}
+                    <tr>
+                        <td>{{RISK_NAME}}</td>
+                        <td class="risk-{{RISK_IMPACT_LEVEL}}">{{RISK_IMPACT}}</td>
+                        <td>{{RISK_LIKELIHOOD}}</td>
+                        <td>{{RISK_MITIGATION}}</td>
+                    </tr>
+                    {{/EACH_RISK}}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="roadmap-section">
+            <h2>Success Metrics</h2>
+            <p>{{METRICS_DESCRIPTION}}</p>
+            
+            <ul class="task-list">
+                {{#EACH_METRIC}}
+                <li class="task-item">
+                    <strong>{{METRIC_NAME}}:</strong> {{METRIC_DESCRIPTION}}
+                </li>
+                {{/EACH_METRIC}}
+            </ul>
+        </div>
+        
+        <div class="conclusion">
+            <h2>Next Steps & Recommendations</h2>
+            <p>{{CONCLUSION_TEXT}}</p>
+            
+            <h3>Immediate Actions:</h3>
+            <ul class="task-list">
+                {{#EACH_ACTION}}
+                <li class="task-item">{{ACTION_TEXT}}</li>
+                {{/EACH_ACTION}}
+            </ul>
+        </div>
+        
+        <footer>
+            <p>Generated on {{GENERATION_DATE}} | {{COMPANY_NAME}}</p>
+        </footer>
+    </div>
+</body>
+</html>
